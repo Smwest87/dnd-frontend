@@ -1,66 +1,50 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 
-class Character extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state= {
-        Character: {
-          Id: null,
-        Name: null,
-        Class: null,
-        Level: null,
-        HitPointMaximum: null,
-        Strength: null,
-        Dexterity: null,
-        Constitution: null,
-        Wisdom: null,
-        Intelligence: null,
-        Charisma: null,
-        Initiative: null
-        }
-      }
+const Character = () => {
+
+    const [character,setCharacter] = React.useState({})
+
+    const fetchCharacter = async  () => {
+      const response = await fetch('http://localhost:10000/character/41')
+          const data = await response.json()
+          console.log(data)
+          setCharacter({
+            id: data.id,
+            name: data.name,
+            class: data.class,
+            level: data.level,
+            hitPointMaximum: data.histPointMaximum,
+            strength: data.strength,
+            dexterity: data.dexterity,
+            constitution: data.constitution,
+            wisdom: data.wisdom,
+            intelligence: data.intelligence,
+            charisma: data.charisma,
+            initiative: data.initiative
+          })
     }
-    componentDidMount() {
-      // Simple GET request using fetch
-      fetch('http://localhost:10000/character/41')
-          .then(response => { const res = response.json();
-          console.log(res);
-          return res }).then(data => this.setState({ Character: {
-            Id: data.Id,
-            Name: data.Name,
-            Class: data.Class,
-            Level: data.Level,
-            HitPointMaximum: data.HistPointMaximum,
-            Strength: data.Strength,
-            Dexterity: data.Dexterity,
-            Constitution: data.Constitution,
-            Wisdom: data.Wisdom,
-            Intelligence: data.Intelligence,
-            Charisma: data.Charisma,
-            Initiative: data.Initiative
-          } }));
-  }
-    render() {
+    
+    useEffect(()=> {fetchCharacter()}, [])
+
       return (
         <div>
         <h1>Character</h1>
-          <div>Id: {this.state.Character.Id}</div>
-          <div>Name: {this.state.Character.Name}</div>
-          <div>Class: {this.state.Character.Class}</div>
-          <div>Level: {this.state.Character.Level}</div>
-          <div>Hit Point Maximum: {this.state.Character.HitPointMaximum}</div>
-          <div>Strength: {this.state.Character.Strength}</div>
-          <div>Dexterity: {this.state.Character.Dexterity}</div>
-          <div>Constitution: {this.state.Character.Constitution}</div>
-          <div>Wisdom: {this.state.Character.Wisdom}</div>
-          <div>Intelligence: {this.state.Character.Intelligence}</div>
-          <div>Charisma: {this.state.Character.Charisma}</div>
-          <div>Initiative: {this.state.Character.Initiative}</div>
+          <div>Id: {character.id}</div>
+          <div>Name: {character.name}</div>
+          <div>Class: {character.class}</div>
+          <div>Level: {character.level}</div>
+          <div>Hit Point Maximum: {character.hitPointMaximum}</div>
+          <div>Strength: {character.strength}</div>
+          <div>Dexterity: {character.dexterity}</div>
+          <div>Constitution: {character.constitution}</div>
+          <div>Wisdom: {character.wisdom}</div>
+          <div>Intelligence: {character.intelligence}</div>
+          <div>Charisma: {character.charisma}</div>
+          <div>Initiative: {character.initiative}</div>
           </div>
       );
-    }
   }
   
   
