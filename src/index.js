@@ -25,8 +25,9 @@ class Character extends React.Component {
     componentDidMount() {
       // Simple GET request using fetch
       fetch('http://localhost:10000/character/41')
-          .then(response => response.json())
-          .then(data => this.setState({ Character: {
+          .then(response => { const res = response.json();
+          console.log(res);
+          return res }).then(data => this.setState({ Character: {
             Id: data.Id,
             Name: data.Name,
             Class: data.Class,
